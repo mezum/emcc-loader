@@ -1,0 +1,70 @@
+{
+  "name": "emcc-loader",
+  "description": "Webpack loader that compiles some c/c++ file to bitcode and links bitcode into a wasm/asm.js using Emscripten.",
+  "version": "0.0.1",
+  "author": "Mezumona Kosaki <mezumona@ryujuorchestra.com>",
+  "license": "MIT",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "npm run build -- -w",
+    "clean": "rimraf dist",
+    "lint": "tslint 'src/**/*.ts'",
+    "test": "jest",
+    "prepublish": "npm run lint && npm run build"
+  },
+  "jest": {
+    "modulePaths": [
+      "src"
+    ],
+    "moduleFileExtensions": [
+      "ts",
+      "js"
+    ],
+    "transform": {
+      "\\.ts$": "./node_modules/ts-jest/preprocessor.js"
+    },
+    "testMatch": [
+      "**/test/**/*Test.ts"
+    ]
+  },
+  "homepage": "https://github.com/mezum/emcc-loader#readme",
+  "repository": "https://github.com/mezum/emcc-loader.git",
+  "bugs": {
+    "url": "https://github.com/mezum/emcc-loader/issues"
+  },
+  "keywords": [
+    "webpack",
+    "loader",
+    "emscripten",
+    "c",
+    "c++",
+    "cpp",
+    "cxx"
+  ],
+  "files": [
+    "package.json",
+    "README.md",
+    "index.js",
+    "lib"
+  ],
+  "dependencies": {
+    "chalk": "^2.3.1",
+    "loader-utils": "^1.1.0",
+    "mkdirp": "^0.5.1"
+  },
+  "devDependencies": {
+    "@types/jest": "^22.1.3",
+    "@types/loader-utils": "^1.1.2",
+    "@types/mkdirp": "^0.5.2",
+    "@types/node": "^9.4.6",
+    "@types/source-map": "^0.5.2",
+    "@types/webpack": "^3.8.8",
+    "jest": "^22.4.2",
+    "rimraf": "^2.6.2",
+    "ts-jest": "^22.0.4",
+    "tslint": "^5.9.1",
+    "tslint-config-airbnb": "^5.7.0",
+    "typescript": "^2.7.2"
+  }
+}

@@ -1,0 +1,19 @@
+# emcc-loader
+/lib/
+/node_modules/
+/package-lock.json
+
+# Linux
+.fuse_hidden*
+.directory
+.Trash-*
+.nfs*
+
+# macOS
+.DS_Store
+._*
+
+# Windows
+Thumbs.db
+[Dd]esktop.ini
+$RECYCLE.BIN/
