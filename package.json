@@ -1,7 +1,7 @@
 {
   "name": "emcc-loader",
   "description": "Webpack loader that compiles some c/c++ file to bitcode and links bitcode into a wasm/asm.js using Emscripten.",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "author": "Mezumona Kosaki <mezumona@ryujuorchestra.com>",
   "license": "MIT",
   "main": "index.js",
