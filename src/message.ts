@@ -17,7 +17,9 @@ export type CompileMessage = {
 	detail : string;
 };
 
-const messageHeaderRegexp = /^(.+):(\d+):(\d+): (\w): (\w)$/g;
+const messageHeaderRegexp = /^(.+):(\d+):(\d+): (\w+): (.+)$/;
+const emccLineHeaderRegexp = /^ERROR:root:.+$/;
+const errorCountFooterRegexp = /^$/;
 
 /**
  * Parses clang compile message.
@@ -26,27 +28,34 @@ export function parseClangMessage(message : string) : CompileMessage[] {
 	const result : CompileMessage[] = [];
 	
 	const lines = message.split('\n');
-	lines.pop();  // warning / error total count.
 	
 	let currentMessage : CompileMessage | null = null;
 	for (const line of lines) {
 		const messageHeader = line.match(messageHeaderRegexp);
 		if (messageHeader) {
 			currentMessage = {
-				filePath : messageHeader[0],
-				line : parseInt(messageHeader[1]),
-				column : parseInt(messageHeader[2]),
-				level : messageHeader[3] as CompileMessageLevel,
-				summary : messageHeader[4],
+				filePath : messageHeader[1],
+				line : parseInt(messageHeader[2]),
+				column : parseInt(messageHeader[3]),
+				level : messageHeader[4] as CompileMessageLevel,
+				summary : messageHeader[5],
 				detail : '',
 			};
 			result.push(currentMessage);
-		} else if (currentMessage !== null) {
-			if (currentMessage.detail.length > 0) {
-				currentMessage.detail += '\n${line}';
-			} else {
-				currentMessage.detail = line;
-			}
+			continue;
+		}
+		if (currentMessage === null) {
+			continue;
+		}
+		if (line.match(emccLineHeaderRegexp)) {
+			currentMessage = null;
+			continue;
+		}
+		
+		if (currentMessage.detail.length > 0) {
+			currentMessage.detail += `\n${line}`;
+		} else {
+			currentMessage.detail = line;
 		}
 	}
 	
@@ -63,10 +72,10 @@ ${message.detail}`;
 		
 		switch (message.level) {
 		case 'error':
-			context.emitError(text);
+			context.emitError(new Error(text));
 			break;
 		case 'warning':
-			context.emitWarning(text);
+			context.emitWarning(new Error(text));
 			break;
 		case 'note':
 			console.log(text);
