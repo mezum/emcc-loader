@@ -11,7 +11,7 @@
     "clean": "rimraf dist",
     "lint": "tslint 'src/**/*.ts'",
     "test": "jest",
-    "prepublish": "npm run lint && npm run build"
+    "prepare": "npm run lint && npm run build"
   },
   "jest": {
     "modulePaths": [
