@@ -19,12 +19,15 @@ export class Compiler {
 		
 		let error = false;
 		const objs = [];
-		for (const line of content.split(/\n|\n?\r/gm).map(str => str.trim())) {
+		for (const line of content.split(/\r\n|\r|\n/gm).map(str => str.trim())) {
 			if (line.length <= 0 || line.startsWith('#')) {
 				continue;
 			}
 			
 			if (line.startsWith('^')) {
+				if (options.preJs) {
+					throw new Error('Multiple preJs is not supported.');
+				}
 				const preJs = path.resolve(context.context, line.slice(1));
 				context.addDependency(preJs);
 				options.preJs = preJs;
@@ -32,15 +35,18 @@ export class Compiler {
 			}
 			
 			if (line.startsWith('$')) {
+				if (options.postJs) {
+					throw new Error('Multiple postJs is not supported.');
+				}
 				const postJs = path.resolve(context.context, line.slice(1));
 				context.addDependency(postJs);
-				options.preJs = postJs;
+				options.postJs = postJs;
 				continue;
 			}
 			
 			const absPath = path.resolve(context.context, line);
 			
-			if (absPath.match(/\.(a|bc|o)/i)) {
+			if (absPath.match(/\.(a|bc|o)$/i)) {
 				context.addDependency(absPath);
 				objs.push(absPath);
 				continue;
@@ -94,6 +100,9 @@ export class Compiler {
 		
 		await utility.mkdirs(path.dirname(outputPath));
 		const { stderr } = await utility.execute(compiler, [...flags, '-o', outputPath, srcPath]).catch(err => {
+			if (err.err.code === 'ENOENT') {
+				throw new Error(`Not found '${compiler}. Have you install it?'`);
+			}
 			return { stderr: err.stderr as string | Buffer };
 		});
 		return message.parseClangMessage(stderr.toString());
@@ -108,6 +117,9 @@ export class Compiler {
 		options.postJs && flags.unshift('--post-js', options.postJs);
 		await utility.mkdirs(path.dirname(outputPath));
 		const { stderr } = await utility.execute(options.ld, flags).catch(err => {
+			if (err.err.code === 'ENOENT') {
+				throw new Error(`Not found '${options.ld}. Have you install it?'`);
+			}
 			return { stderr: err.stderr as string | Buffer };
 		});
 		return message.parseClangMessage(stderr.toString());

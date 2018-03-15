@@ -17,7 +17,7 @@ export const readFile = promisify(fs.readFile);
  */
 export async function getDependencies(compiler : string, absPath : string, flags : string[]) {
 	const { stdout } = await execute(compiler, [...flags, '-MM', absPath]).catch(err => {
-		return { stdout: `dummy.o: ${absPath}` };
+		throw err.err;
 	});
 	const dependencies = stdout.toString().trim().replace(/\\(\n|\n?\r)/gm, '').split(/\s+/g);
 	dependencies.shift();  // `${basename}.o:`
