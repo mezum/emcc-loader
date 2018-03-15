@@ -4,12 +4,12 @@
   "version": "0.0.2",
   "author": "Mezumona Kosaki <mezumona@ryujuorchestra.com>",
   "license": "MIT",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
-    "build": "tsc",
-    "start": "npm run build -- -w",
-    "clean": "rimraf dist",
-    "lint": "tslint 'src/**/*.ts'",
+    "build": "rollup -c",
+    "start": "tsc --noEmit -w",
+    "clean": "rimraf lib",
+    "lint": "tslint --project . --format stylish",
     "test": "jest",
     "prepare": "npm run lint && npm run build"
   },
@@ -49,7 +49,6 @@
     "lib"
   ],
   "dependencies": {
-    "chalk": "^2.3.1",
     "loader-utils": "^1.1.0",
     "mkdirp": "^0.5.1"
   },
@@ -62,6 +61,8 @@
     "@types/webpack": "^3.8.8",
     "jest": "^22.4.2",
     "rimraf": "^2.6.2",
+    "rollup": "^0.57.0",
+    "rollup-plugin-typescript2": "^0.12.0",
     "ts-jest": "^22.0.4",
     "tslint": "^5.9.1",
     "tslint-config-airbnb": "^5.7.0",

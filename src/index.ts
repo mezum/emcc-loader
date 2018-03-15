@@ -5,7 +5,7 @@ import { loader } from 'webpack';
 import { parseOption } from './option';
 import { Compiler } from './compiler';
 
-export function main(this : loader.LoaderContext, content : string) {
+export default function (this : loader.LoaderContext, content : string) {
 	this.cacheable && this.cacheable();
 	const callback = this.async() || (() => {});
 	const options = parseOption(this);
@@ -17,5 +17,3 @@ export function main(this : loader.LoaderContext, content : string) {
 	});
 	return null;
 }
-
-export default main;

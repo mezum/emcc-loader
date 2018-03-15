@@ -1,7 +1,8 @@
 # emcc-loader
+/.rpt2_cache/
+/build/
 /lib/
 /node_modules/
-/package-lock.json
 
 # Linux
 .fuse_hidden*

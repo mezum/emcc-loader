@@ -5,6 +5,7 @@
 		"ter-indent": [true, "tab"],
 		"object-shorthand-properties-first": false,
 		"radix": false,
-		"ter-arrow-parens": false
+		"ter-arrow-parens": false,
+		"strict-boolean-expressions": false
 	}
 }
