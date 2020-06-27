@@ -7,6 +7,7 @@ import { promisify } from 'util';
 import { loader } from 'webpack';
 
 const stat = promisify(fs.stat);
+const isWindows = /^win/.test(process.platform);
 
 export const exists = fs.existsSync;
 export const mkdirs = promisify(mkdirp);
@@ -15,7 +16,7 @@ export const readFile = promisify(fs.readFile);
 /**
  * Gets dependencies file paths.
  */
-export async function getDependencies(compiler : string, absPath : string, flags : string[]) {
+export async function getDependencies(compiler: string, absPath: string, flags: string[]) {
 	const { stdout } = await execute(compiler, [...flags, '-MM', absPath]).catch(err => {
 		throw err.err;
 	});
@@ -27,7 +28,7 @@ export async function getDependencies(compiler : string, absPath : string, flags
 /**
  * Adds dependencies.
  */
-export function addDependencies(context : loader.LoaderContext, paths : string[]) {
+export function addDependencies(context: loader.LoaderContext, paths: string[]) {
 	for (const p of paths) {
 		context.addDependency(p);
 	}
@@ -36,7 +37,7 @@ export function addDependencies(context : loader.LoaderContext, paths : string[]
 /**
  * Gets latest modified time.
  */
-export async function getLatestModifiedTime(paths : string[]) {
+export async function getLatestModifiedTime(paths: string[]) {
 	if (paths.length <= 0) {
 		throw new Error('paths must be non-empty.');
 	}
@@ -53,7 +54,7 @@ export async function getLatestModifiedTime(paths : string[]) {
 /**
  * Gets modified time.
  */
-export async function getModifiedTime(file : string) {
+export async function getModifiedTime(file: string) {
 	if (!exists(file)) {
 		return Date.UTC(1970, 0);
 	}
@@ -63,14 +64,18 @@ export async function getModifiedTime(file : string) {
 /**
  * Executes specified file.
  */
-export async function execute(file : string, args : string[], options? : child_process.ExecFileOptions) {
+export async function execute(file: string, args: string[], options?: child_process.ExecFileOptions) {
 	type SuccessType = {
+		err?: Error;
 		stdout: string | Buffer;
 		stderr: string | Buffer;
 	};
-	
+
+	const childProcessExecutable = isWindows ? 'cmd' : file;
+	const childProcessArguments = isWindows ? ['/s', '/c', file, ...args] : args;
+
 	return new Promise<SuccessType>((resolve, reject) => {
-		child_process.execFile(file, args, options || {}, (err, stdout, stderr) => {
+		child_process.execFile(childProcessExecutable, childProcessArguments, options || {}, (err, stdout, stderr) => {
 			if (err) {
 				reject({
 					err,
@@ -90,7 +95,7 @@ export async function execute(file : string, args : string[], options? : child_p
 /**
  * Gets a temporary file name for build.
  */
-export function getTempName(absPath : string) : string {
+export function getTempName(absPath: string): string {
 	const basename = path.basename(absPath, path.extname(absPath));
 	const hash = crypto.createHash('md5').update(absPath).digest('hex');
 	return `${basename}-${hash.slice(0, -2)}`;

@@ -49,23 +49,23 @@
     "lib"
   ],
   "dependencies": {
-    "loader-utils": "^1.1.0",
-    "mkdirp": "^0.5.1"
+    "loader-utils": "^1.4.0",
+    "mkdirp": "^0.5.5"
   },
   "devDependencies": {
-    "@types/jest": "^22.1.3",
-    "@types/loader-utils": "^1.1.2",
+    "@types/jest": "^22.2.3",
+    "@types/loader-utils": "^1.1.4",
     "@types/mkdirp": "^0.5.2",
-    "@types/node": "^9.4.6",
-    "@types/source-map": "^0.5.2",
-    "@types/webpack": "^3.8.8",
-    "jest": "^22.4.2",
-    "rimraf": "^2.6.2",
-    "rollup": "^0.57.0",
+    "@types/node": "^9.6.56",
+    "@types/source-map": "^0.5.7",
+    "@types/webpack": "^3.8.19",
+    "jest": "^26.1.0",
+    "rimraf": "^2.7.1",
+    "rollup": "^0.57.1",
     "rollup-plugin-typescript2": "^0.12.0",
-    "ts-jest": "^22.0.4",
-    "tslint": "^5.9.1",
-    "tslint-config-airbnb": "^5.7.0",
-    "typescript": "^2.7.2"
+    "ts-jest": "^26.1.1",
+    "tslint": "^5.20.1",
+    "tslint-config-airbnb": "^5.11.2",
+    "typescript": "^2.9.2"
   }
 }

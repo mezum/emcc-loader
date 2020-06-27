@@ -9,63 +9,58 @@ export type LoaderOption = {
 	/**
 	 * A path to temporary directory for bitcode, archive file and wasm/asm.js.
 	 */
-	buildDir : string;
-	
-	/**
-	 * Runtime environment.
-	 */
-	environment : string;
-	
+	buildDir: string;
+
 	/**
 	 * Option for --pre-js
 	 */
-	preJs? : string;
-	
+	preJs?: string;
+
 	/**
 	 * Option for --post-js
 	 */
-	postJs? : string;
-	
+	postJs?: string;
+
 	/**
 	 * A path to c compiler.
 	 */
-	cc : string;
-	
+	cc: string;
+
 	/**
 	 * A path to c++ compiler
 	 */
-	cxx : string;
-	
+	cxx: string;
+
 	/**
 	 * A path to linker.
 	 */
-	ld : string;
-	
+	ld: string;
+
 	/**
 	 * Flags for compilers/linkers.
 	 */
-	commonFlags : string[];
-	
+	commonFlags: string[];
+
 	/**
 	 * Flags for cc.
 	 */
-	cFlags : string[];
-	
+	cFlags: string[];
+
 	/**
 	 * Flags for cxx.
 	 */
-	cxxFlags : string[];
-	
+	cxxFlags: string[];
+
 	/**
 	 * Flags for ld.
 	 */
-	ldFlags : string[];
+	ldFlags: string[];
 };
 
 /**
  * Gets a option from loader context.
  */
-export function parseOption(context : loader.LoaderContext) : LoaderOption {
+export function parseOption(context: loader.LoaderContext): LoaderOption {
 	const options = getOptions(context);
 	if (!options.buildDir) {
 		throw new Error('options.buildDir must be specified.');
@@ -73,10 +68,9 @@ export function parseOption(context : loader.LoaderContext) : LoaderOption {
 	if (!path.isAbsolute(options.buildDir)) {
 		throw new Error('options.buildDir must be absolute.');
 	}
-	
+
 	return {
 		buildDir: options.buildDir,
-		environment: options.environment || 'WEB',
 		cc: options.cc || 'emcc',
 		cxx: options.cxx || 'em++',
 		ld: options.ld || 'emcc',
