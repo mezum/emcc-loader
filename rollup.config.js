@@ -5,7 +5,8 @@ export default {
 	output: {
 		file: 'lib/index.js',
 		format: 'cjs',
-		sourcemap: true
+		sourcemap: true,
+		exports: "default"
 	},
 	plugins: [
 		typescript()
