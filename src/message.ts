@@ -65,7 +65,10 @@ export function parseClangMessage(message: string): CompileMessage[] {
 /**
  * Emits compile warning/error messages.
  */
-export function emitCompileMessages(context: loader.LoaderContext, messages: CompileMessage[]): void {
+export function emitCompileMessages(
+	context: loader.LoaderContext,
+	messages: CompileMessage[]
+): void {
 	for (const message of messages) {
 		const text = `${message.filePath}(${message.line},${message.column}): ${message.level}: ${message.summary}
 ${message.detail}`;
@@ -78,7 +81,10 @@ ${message.detail}`;
 				context.emitWarning(new Error(text));
 				break;
 			case 'note':
+				/* eslint no-console: "off" */
 				console.log(text);
+				break;
+			default:
 				break;
 		}
 	}

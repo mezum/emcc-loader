@@ -1,4 +1,4 @@
-import * as child_process from 'child_process';
+import * as childProcess from 'child_process';
 import * as crypto from 'crypto';
 import * as fs from 'fs';
 import * as mkdirp from 'mkdirp';
@@ -16,19 +16,34 @@ export const readFile = promisify(fs.readFile);
 /**
  * Gets dependencies file paths.
  */
-export async function getDependencies(compiler: string, absPath: string, flags: string[]) {
-	const { stdout } = await execute(compiler, [...flags, '-MM', absPath]).catch(err => {
+export async function getDependencies(
+	compiler: string,
+	absPath: string,
+	flags: string[]
+) {
+	const { stdout } = await execute(compiler, [
+		...flags,
+		'-MM',
+		absPath,
+	]).catch(err => {
 		throw err.err;
 	});
-	const dependencies = stdout.toString().trim().replace(/\\(\n|\n?\r)/gm, '').split(/\s+/g);
-	dependencies.shift();  // `${basename}.o:`
+	const dependencies = stdout
+		.toString()
+		.trim()
+		.replace(/\\(\n|\n?\r)/gm, '')
+		.split(/\s+/g);
+	dependencies.shift(); // `${basename}.o:`
 	return dependencies;
 }
 
 /**
  * Adds dependencies.
  */
-export function addDependencies(context: loader.LoaderContext, paths: string[]) {
+export function addDependencies(
+	context: loader.LoaderContext,
+	paths: string[]
+) {
 	for (const p of paths) {
 		context.addDependency(p);
 	}
@@ -64,7 +79,11 @@ export async function getModifiedTime(file: string) {
 /**
  * Executes specified file.
  */
-export async function execute(file: string, args: string[], options?: child_process.ExecFileOptions) {
+export async function execute(
+	file: string,
+	args: string[],
+	options?: childProcess.ExecFileOptions
+) {
 	type SuccessType = {
 		err?: Error;
 		stdout: string | Buffer;
@@ -72,23 +91,30 @@ export async function execute(file: string, args: string[], options?: child_proc
 	};
 
 	const childProcessExecutable = isWindows ? 'cmd' : file;
-	const childProcessArguments = isWindows ? ['/s', '/c', file, ...args] : args;
+	const childProcessArguments = isWindows
+		? ['/s', '/c', file, ...args]
+		: args;
 
 	return new Promise<SuccessType>((resolve, reject) => {
-		child_process.execFile(childProcessExecutable, childProcessArguments, options || {}, (err, stdout, stderr) => {
-			if (err) {
-				reject({
-					err,
-					stdout,
-					stderr,
-				});
-			} else {
-				resolve({
-					stdout,
-					stderr,
-				});
+		childProcess.execFile(
+			childProcessExecutable,
+			childProcessArguments,
+			options || {},
+			(err, stdout, stderr) => {
+				if (err) {
+					resolve({
+						err,
+						stdout,
+						stderr,
+					});
+				} else {
+					resolve({
+						stdout,
+						stderr,
+					});
+				}
 			}
-		});
+		);
 	});
 }
 

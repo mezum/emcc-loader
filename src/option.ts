@@ -65,18 +65,20 @@ export function parseOption(context: loader.LoaderContext): LoaderOption {
 	if (!options.buildDir) {
 		throw new Error('options.buildDir must be specified.');
 	}
-	if (!path.isAbsolute(options.buildDir)) {
+	if (!path.isAbsolute(<string>options.buildDir)) {
 		throw new Error('options.buildDir must be absolute.');
 	}
 
 	return {
-		buildDir: options.buildDir,
-		cc: options.cc || 'emcc',
-		cxx: options.cxx || 'em++',
-		ld: options.ld || 'emcc',
-		commonFlags: options.commonFlags || [],
-		cFlags: options.cFlags || [],
-		cxxFlags: options.cxxFlags || [],
-		ldFlags: options.ldFlags || [],
+		buildDir: <string>options.buildDir,
+		cc: <string>options.cc || 'emcc',
+		cxx: <string>options.cxx || 'em++',
+		ld: <string>options.ld || 'emcc',
+		/* eslint-disable @typescript-eslint/no-explicit-any */
+		commonFlags: <string[]>(<any>options.commonFlags) || [],
+		cFlags: <string[]>(<any>options.cFlags) || [],
+		cxxFlags: <string[]>(<any>options.cxxFlags) || [],
+		ldFlags: <string[]>(<any>options.ldFlags) || [],
+		/* eslint-enable @typescript-eslint/no-explicit-any */
 	};
 }

@@ -1,16 +1,20 @@
-import * as path from 'path';
-import * as loaderUtils from 'loader-utils';
 import { loader } from 'webpack';
 
 import { parseOption } from './option';
 import { Compiler } from './compiler';
 
-export default function (this: loader.LoaderContext, content: string) {
-	this.cacheable && this.cacheable();
-	const callback = this.async() || (() => { });
+function emcc(this: loader.LoaderContext, content: string): void {
+	this?.cacheable();
+	const callback =
+		this.async() ||
+		(() => {
+			// do nothing.
+		});
 	const options = parseOption(this);
-	new Compiler().process(this, content, options)
-		.then(content => callback(null, content))
+	new Compiler()
+		.process(this, content, options)
+		.then(ctx => callback(null, ctx))
 		.catch(err => callback(err));
-	return null;
 }
+
+export default emcc;
