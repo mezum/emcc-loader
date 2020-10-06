@@ -99,7 +99,7 @@ export class Compiler {
 		}
 
 		await utility.mkdirs(path.dirname(outputPath));
-		const { stderr } = await utility.execute(compiler, [...flags, '-o', outputPath, srcPath]).catch(err => {
+		const { stderr } = await utility.execute(compiler, [...flags, '-c', '-o', outputPath, srcPath]).catch(err => {
 			if (err.err.code === 'ENOENT') {
 				throw new Error(`Not found '${compiler}. Have you install it?'`);
 			}
