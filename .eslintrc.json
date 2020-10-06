@@ -1,0 +1,53 @@
+{
+	"extends": [
+		"airbnb-typescript-prettier"
+	],
+	"rules": {
+		"max-len": [
+			"error",
+			120
+		],
+		"indent": [
+			"error",
+			"tab",
+			{
+				"SwitchCase": 1
+			}
+		],
+		"react/*": "off",
+		"object-shorthand-properties-first": "off",
+		"radix": "off",
+		"strict-boolean-expressions": "off",
+		"import/prefer-default-export": "off",
+		"import/no-unresolved": "off",
+		"no-continue": "off",
+		"no-param-reassign": "off",
+		"no-await-in-loop": "off",
+		"no-use-before-define": "off",
+		"class-methods-use-this": "off",
+		"@typescript-eslint/no-unused-vars": "off",
+		"@typescript-eslint/explicit-module-boundary-types": "off",
+		"no-restricted-syntax": [
+			"error",
+			{
+				"selector": "ForInStatement",
+				"message": "Do not use for..in statement."
+			},
+			{
+				"selector": "LabeledStatement",
+				"message": "Do not use labeled statement."
+			},
+			{
+				"selector": "WithStatement",
+				"message": "Do not use with statement."
+			}
+		],
+		"prettier/prettier": [
+			"error",
+			{
+				"singleQuote": true,
+				"arrowParens": "avoid"
+			}
+		]
+	}
+}
