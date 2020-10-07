@@ -1,16 +1,16 @@
 {
   "name": "emcc-loader",
   "description": "Webpack loader that compiles some c/c++ file to bitcode and links bitcode into a wasm/asm.js using Emscripten.",
-  "version": "0.0.3",
-  "author": "Mezumona Kosaki <mezumona@ryujuorchestra.com>",
+  "version": "0.0.4",
+  "author": "Kosaki Mezumona <mezumona@ryujuorchestra.com>",
   "license": "MIT",
   "main": "lib/index.js",
   "scripts": {
     "build": "rollup -c",
     "start": "tsc --noEmit -w",
     "clean": "rimraf lib",
-    "lint": "tslint --project . --format stylish",
-    "test": "jest",
+    "lint": "eslint --format stylish \"src/**/*.ts\"",
+    "lint-fix": "eslint --fix \"src/**/*.ts\"",
     "prepare": "npm run lint && npm run build"
   },
   "jest": {
@@ -49,23 +49,22 @@
     "lib"
   ],
   "dependencies": {
-    "loader-utils": "^1.4.0",
-    "mkdirp": "^0.5.5"
+    "loader-utils": "^2.0.0",
+    "mkdirp": "^1.0.4"
   },
   "devDependencies": {
-    "@types/jest": "^22.2.3",
-    "@types/loader-utils": "^1.1.4",
-    "@types/mkdirp": "^0.5.2",
-    "@types/node": "^9.6.56",
+    "@types/loader-utils": "^2.0.1",
+    "@types/mkdirp": "^1.0.1",
+    "@types/node": "^14.11.5",
     "@types/source-map": "^0.5.7",
-    "@types/webpack": "^3.8.19",
-    "jest": "^26.1.0",
-    "rimraf": "^2.7.1",
-    "rollup": "^0.57.1",
-    "rollup-plugin-typescript2": "^0.12.0",
-    "ts-jest": "^26.1.1",
-    "tslint": "^5.20.1",
-    "tslint-config-airbnb": "^5.11.2",
-    "typescript": "^2.9.2"
+    "@types/webpack": "^4.41.22",
+    "eslint": "^7.10.0",
+    "eslint-config-airbnb-typescript-prettier": "^3.1.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "prettier": "^2.1.2",
+    "rimraf": "^3.0.2",
+    "rollup": "^2.28.2",
+    "rollup-plugin-typescript2": "^0.27.3",
+    "typescript": "^4.0.3"
   }
 }
