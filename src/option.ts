@@ -12,6 +12,11 @@ export type LoaderOption = {
 	buildDir: string;
 
 	/**
+	 * A path to working directory for compiler.
+	 */
+	cwd?: string;
+
+	/**
 	 * Option for --pre-js
 	 */
 	preJs?: string;
@@ -74,6 +79,7 @@ export function parseOption(context: loader.LoaderContext): LoaderOption {
 		cc: <string>options.cc || 'emcc',
 		cxx: <string>options.cxx || 'em++',
 		ld: <string>options.ld || 'emcc',
+		cwd: <string | undefined>options.cwd,
 		/* eslint-disable @typescript-eslint/no-explicit-any */
 		commonFlags: <string[]>(<any>options.commonFlags) || [],
 		cFlags: <string[]>(<any>options.cFlags) || [],
