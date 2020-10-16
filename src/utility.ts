@@ -1,7 +1,7 @@
 import * as childProcess from 'child_process';
 import * as crypto from 'crypto';
 import * as fs from 'fs';
-import * as mkdirp from 'mkdirp';
+import mkdirp from 'mkdirp';
 import * as path from 'path';
 import { promisify } from 'util';
 import { loader } from 'webpack';
@@ -10,7 +10,7 @@ const stat = promisify(fs.stat);
 const isWindows = /^win/.test(process.platform);
 
 export const exists = fs.existsSync;
-export const mkdirs = promisify(mkdirp);
+export const mkdirs = mkdirp;
 export const readFile = promisify(fs.readFile);
 
 /**
