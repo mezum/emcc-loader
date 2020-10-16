@@ -86,6 +86,8 @@ emcc-loader is configuable on webpack.config.js.
 
 - buildDir : string
 -- [Required] absolute path to temporary directory used by emcc.
+- cwd : string
+-- [default=undefined] working directory for compilers. If specified, all paths passed to compilers will be relative against cwd.
 - cc : string
 -- [default=emcc] c compiler path.
 - cxx : string
