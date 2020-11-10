@@ -3,7 +3,9 @@
   "description": "Webpack loader that compiles some c/c++ file to bitcode and links bitcode into a wasm/asm.js using Emscripten.",
   "version": "0.0.5",
   "author": "Kosaki Mezumona <mezumona@ryujuorchestra.com>",
-  "contributors": ["Kazumi Inada <hello@nandenjin.com>"],
+  "contributors": [
+    "Kazumi Inada <hello@nandenjin.com>"
+  ],
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/"
   },
@@ -19,20 +21,40 @@
     "release": "shipjs prepare"
   },
   "jest": {
-    "modulePaths": ["src"],
-    "moduleFileExtensions": ["ts", "js"],
+    "modulePaths": [
+      "src"
+    ],
+    "moduleFileExtensions": [
+      "ts",
+      "js"
+    ],
     "transform": {
       "\\.ts$": "./node_modules/ts-jest/preprocessor.js"
     },
-    "testMatch": ["**/test/**/*Test.ts"]
+    "testMatch": [
+      "**/test/**/*Test.ts"
+    ]
   },
   "homepage": "https://github.com/nandenjin/emcc-loader#readme",
   "repository": "https://github.com/nandenjin/emcc-loader.git",
   "bugs": {
     "url": "https://github.com/nandenjin/emcc-loader/issues"
   },
-  "keywords": ["webpack", "loader", "emscripten", "c", "c++", "cpp", "cxx"],
-  "files": ["package.json", "README.md", "index.js", "lib"],
+  "keywords": [
+    "webpack",
+    "loader",
+    "emscripten",
+    "c",
+    "c++",
+    "cpp",
+    "cxx"
+  ],
+  "files": [
+    "package.json",
+    "README.md",
+    "index.js",
+    "lib"
+  ],
   "dependencies": {
     "loader-utils": "^2.0.0",
     "mkdirp": "^1.0.4"
