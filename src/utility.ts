@@ -25,7 +25,7 @@ export async function getDependencies(
 	const { stdout } = await execute(
 		compiler,
 		[...flags, '-MM', cwd ? path.relative(cwd, absPath) : absPath],
-		{ cwd }
+		{ cwd, shell: true }
 	).catch(err => {
 		throw err.err;
 	});

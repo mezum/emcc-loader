@@ -1,8 +1,14 @@
 {
-  "name": "emcc-loader",
+  "name": "@nandenjin/emcc-loader",
   "description": "Webpack loader that compiles some c/c++ file to bitcode and links bitcode into a wasm/asm.js using Emscripten.",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "author": "Kosaki Mezumona <mezumona@ryujuorchestra.com>",
+  "contributors": [
+    "Kazumi Inada <hello@nandenjin.com>"
+  ],
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
   "license": "MIT",
   "main": "lib/index.js",
   "scripts": {
@@ -11,7 +17,8 @@
     "clean": "rimraf lib",
     "lint": "eslint --format stylish \"src/**/*.ts\"",
     "lint-fix": "eslint --fix \"src/**/*.ts\"",
-    "prepare": "npm run lint && npm run build"
+    "prepare": "npm run lint && npm run build",
+    "release": "shipjs prepare"
   },
   "jest": {
     "modulePaths": [
@@ -28,10 +35,10 @@
       "**/test/**/*Test.ts"
     ]
   },
-  "homepage": "https://github.com/mezum/emcc-loader#readme",
-  "repository": "https://github.com/mezum/emcc-loader.git",
+  "homepage": "https://github.com/nandenjin/emcc-loader#readme",
+  "repository": "https://github.com/nandenjin/emcc-loader.git",
   "bugs": {
-    "url": "https://github.com/mezum/emcc-loader/issues"
+    "url": "https://github.com/nandenjin/emcc-loader/issues"
   },
   "keywords": [
     "webpack",
@@ -65,6 +72,7 @@
     "rimraf": "^3.0.2",
     "rollup": "^2.28.2",
     "rollup-plugin-typescript2": "^0.27.3",
+    "shipjs": "0.23.0",
     "typescript": "^4.0.3"
   }
 }

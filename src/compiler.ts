@@ -140,7 +140,7 @@ export class Compiler {
 						: outputPath,
 					options.cwd ? path.relative(options.cwd, srcPath) : srcPath,
 				],
-				{ cwd: options.cwd }
+				{ cwd: options.cwd, shell: true }
 			)
 			.catch(err => {
 				if (err.err.code === 'ENOENT') {
@@ -189,7 +189,7 @@ export class Compiler {
 		}
 		await utility.mkdirs(path.dirname(outputPath), undefined);
 		const { stderr } = await utility
-			.execute(options.ld, flags, { cwd: options.cwd })
+			.execute(options.ld, flags, { cwd: options.cwd, shell: true })
 			.catch(err => {
 				if (err.err.code === 'ENOENT') {
 					throw new Error(
