@@ -1,10 +1,29 @@
-# emcc-loader
+# `@nandenjin/emcc-loader`
+
+![LICENSE](https://img.shields.io/github/license/nandenjin/emcc-loader?style=flat-square)
+![Version](https://img.shields.io/github/package-json/v/nandenjin/emcc-loader?style=flat-square)
+![CI Status](https://img.shields.io/github/workflow/status/nandenjin/emcc-loader/CI?style=flat-square)
+[![Dependencies](https://img.shields.io/david/nandenjin/emcc-loader?style=flat-square)](https://david-dm.org/nandenjin/emcc-loader)
+[![devDependencies](https://img.shields.io/david/dev/nandenjin/emcc-loader?style=flat-square)](https://david-dm.org/nandenjin/emcc-loader?type=dev)
+
 Webpack loader that compiles some c/c++ files into a wasm using Emscripten.
+
+🙋‍♂️ This is a fork of [`mezum/emcc-loader`](https://www.npmjs.com/package/emcc-loader), and is to implement and contribute for the original package with new features and fixes.
 
 ## Install
 
+**⚠️ This is a forked package. For original `emcc-loader`, see [official package page on NPM](https://www.npmjs.com/package/emcc-loader).**
+
+`@nandenjin/emcc-loader` is hosted on GitHub Packages Registry. Add following to `.npmrc` to use it for all `@nandenjin/` packages. [Learn more](https://docs.github.com/en/free-pro-team@latest/packages/using-github-packages-with-your-projects-ecosystem/configuring-npm-for-use-with-github-packages#installing-a-package)
+
 ```
-npm install --save-dev emcc-loader
+registry=https://npm.pkg.github.com/nandenjin
+```
+
+Then, install as usual.
+
+```
+npm install --save-dev @nandenjin/emcc-loader
 ```
 
 ## Usage
@@ -86,12 +105,14 @@ emcc-loader is configuable on webpack.config.js.
 
 - buildDir : string
 -- [Required] absolute path to temporary directory used by emcc.
+- cwd : string
+-- [default=undefined] working directory for compilers. If specified, all paths passed to compilers will be relative against cwd.
 - cc : string
--- [default=emcc] c compiler path.
+-- [default=emcc] c compiler path or command.
 - cxx : string
--- [default=em++] c++ compiler path.
+-- [default=em++] c++ compiler path or command.
 - ld : string
--- [default=emcc] linker path.
+-- [default=emcc] linker path or command.
 - commonFlags : string[]
 -- [default=[]] array of flags passed to all emcc/em++ commands.
 - cFlags : string[]
