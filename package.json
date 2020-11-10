@@ -6,6 +6,9 @@
   "contributors": [
     "Kazumi Inada <hello@nandenjin.com>"
   ],
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
   "license": "MIT",
   "main": "lib/index.js",
   "scripts": {
@@ -31,10 +34,10 @@
       "**/test/**/*Test.ts"
     ]
   },
-  "homepage": "https://github.com/mezum/emcc-loader#readme",
-  "repository": "https://github.com/mezum/emcc-loader.git",
+  "homepage": "https://github.com/nandenjin/emcc-loader#readme",
+  "repository": "https://github.com/nandenjin/emcc-loader.git",
   "bugs": {
-    "url": "https://github.com/mezum/emcc-loader/issues"
+    "url": "https://github.com/nandenjin/emcc-loader/issues"
   },
   "keywords": [
     "webpack",
