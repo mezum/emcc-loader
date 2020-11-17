@@ -127,16 +127,16 @@ export class Compiler {
 		}
 
 		await utility.mkdirs(path.dirname(outputPath), undefined);
-		const { stderr } = await utility
-			.execute(compiler, [...flags, '-c', '-o', outputPath, srcPath])
-			.catch(err => {
-				if (err.err.code === 'ENOENT') {
-					throw new Error(
-						`Not found '${compiler}. Have you install it?'`
-					);
-				}
-				return { stderr: err.stderr as string | Buffer };
-			});
+		const { stderr, err } = await utility.execute(compiler, [
+			...flags,
+			'-c',
+			'-o',
+			outputPath,
+			srcPath,
+		]);
+
+		if (err) throw err;
+
 		return message.parseClangMessage(stderr.toString());
 	}
 
@@ -165,16 +165,10 @@ export class Compiler {
 			flags.unshift('--post-js', options.postJs);
 		}
 		await utility.mkdirs(path.dirname(outputPath), undefined);
-		const { stderr } = await utility
-			.execute(options.ld, flags)
-			.catch(err => {
-				if (err.err.code === 'ENOENT') {
-					throw new Error(
-						`Not found '${options.ld}. Have you install it?'`
-					);
-				}
-				return { stderr: err.stderr as string | Buffer };
-			});
+		const { stderr, err } = await utility.execute(options.ld, flags);
+
+		if (err) throw err;
+
 		return message.parseClangMessage(stderr.toString());
 	}
 
