@@ -128,7 +128,9 @@ export class Compiler {
 
 		await utility.mkdirs(path.dirname(outputPath), undefined);
 		const { stderr } = await utility
-			.execute(compiler, [...flags, '-c', '-o', outputPath, srcPath])
+			.execute(compiler, [...flags, '-c', '-o', outputPath, srcPath], {
+				shell: true,
+			})
 			.catch(err => {
 				if (err.err.code === 'ENOENT') {
 					throw new Error(
@@ -166,7 +168,7 @@ export class Compiler {
 		}
 		await utility.mkdirs(path.dirname(outputPath), undefined);
 		const { stderr } = await utility
-			.execute(options.ld, flags)
+			.execute(options.ld, flags, { shell: true })
 			.catch(err => {
 				if (err.err.code === 'ENOENT') {
 					throw new Error(

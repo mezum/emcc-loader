@@ -87,11 +87,11 @@ emcc-loader is configuable on webpack.config.js.
 - buildDir : string
 -- [Required] absolute path to temporary directory used by emcc.
 - cc : string
--- [default=emcc] c compiler path.
+-- [default=emcc] c compiler path or command.
 - cxx : string
--- [default=em++] c++ compiler path.
+-- [default=em++] c++ compiler path or command.
 - ld : string
--- [default=emcc] linker path.
+-- [default=emcc] linker path or command.
 - commonFlags : string[]
 -- [default=[]] array of flags passed to all emcc/em++ commands.
 - cFlags : string[]
