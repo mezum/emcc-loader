@@ -21,13 +21,10 @@ export async function getDependencies(
 	absPath: string,
 	flags: string[]
 ) {
-	const { stdout } = await execute(compiler, [
-		...flags,
-		'-MM',
-		absPath,
-	]).catch(err => {
-		throw err.err;
-	});
+	const { stdout, err } = await execute(compiler, [...flags, '-MM', absPath]);
+
+	if (err) throw err;
+
 	const dependencies = stdout
 		.toString()
 		.trim()
